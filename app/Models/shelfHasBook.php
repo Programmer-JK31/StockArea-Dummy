@@ -12,4 +12,12 @@ class shelfHasBook extends Model
         'shelf_id',
         'book_id'
     ];
+
+    public function shelf(){
+        return $this->hasOne(Shelf::class);
+    }
+
+    public function book(){
+        return $this->hasOne(Book::class, 'id', 'book_id');
+    }
 }

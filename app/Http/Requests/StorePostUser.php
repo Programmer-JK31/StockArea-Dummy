@@ -32,13 +32,4 @@ class StorePostUser extends FormRequest
         ];
     }
 
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException(
-            response()->json([
-                'message' => 'Validation errors',
-                'errors' => $validator->errors()
-            ], 422)
-        );
-    }
 }

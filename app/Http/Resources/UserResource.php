@@ -18,7 +18,19 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'phone' => $this->phone
+            'phone' => $this->phone,
+            'shelf' => $this->when($this->loadBooks, function(){
+                $shelfData = [];
+                // echo $userData->shelf;
+                foreach($this->shelf as $shelf){
+                    $bookData = $shelf->shelfHasBook->pluck('book.name');
+                    $shelfData[$shelf->name] = $bookData;
+                }
+                return $shelfData;
+            }),
+            'shelves' => $this->when(!$this->loadBooks, function(){
+                return $this->shelf->pluck('name')->toArray();
+            })
         ];
     }
 }

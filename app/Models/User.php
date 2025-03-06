@@ -14,4 +14,8 @@ class User extends Model
         'email',
         'phone',
     ];
+
+    public function shelf(){
+        return $this->hasMany(Shelf::class);
+    }
 }

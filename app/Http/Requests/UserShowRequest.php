@@ -24,7 +24,17 @@ class UserShowRequest extends FormRequest
     public function rules()
     {
         return [
+            'id' => 'required|int|exists:users,id',
             'load_books' => 'sometimes|boolean'
         ];
+    }
+
+    protected function prepareForValidation(){
+        $this->merge([
+            'id' => $this->route('id')
+        ]);
+        $this->mergeIfMissing([
+            'load_books' => false, // Default value if not present
+        ]);
     }
 }
